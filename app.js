@@ -7,6 +7,7 @@ var paymentPassword = [];
 var activityId = 18; // Badminton
 var venueId = 296; // Clementi sports hall
 var bookingTime = ['15:00:00;16:00:00', '16:00:00;17:00:00'];
+var lookAhead = 15;
 
 var spooky = new Spooky({
   child: {
@@ -59,7 +60,8 @@ var spooky = new Spooky({
     return this.getCurrentUrl().indexOf('https://members.myactivesg.com/facilities') === 0;
   }, [{
     activityId: activityId,
-    venueId: venueId
+    venueId: venueId,
+    lookAhead: lookAhead
   }, function() {
     this.emit('log', '[Active SG] Facility booking page is displayed.');
 
@@ -133,7 +135,7 @@ var spooky = new Spooky({
     };
 
     var bookingDate = new Date();
-    bookingDate.setDate(bookingDate.getDate() + 13);
+    bookingDate.setDate(bookingDate.getDate() + lookAhead);
     var bookingDayOfWeek = bookingDate.getDay();
     if (bookingDayOfWeek === 0) {
       bookingDayOfWeek = 7;
